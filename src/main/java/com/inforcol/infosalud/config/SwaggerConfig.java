@@ -19,13 +19,4 @@ import springfox.documentation.spring.web.plugins.Docket;
 )
 public class SwaggerConfig {
 
-        @Bean
-        public Docket api() {
-                return new Docket(DocumentationType.OAS_30)  // Utiliza OAS_30 para OpenAPI 3.0
-                        .select()
-                        .apis(RequestHandlerSelectors.any())
-                        .paths(PathSelectors.any())
-                        .build();
-        }
-
 }

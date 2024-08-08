@@ -19,10 +19,15 @@ public class SecurityConfig  {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers( new AntPathRequestMatcher("swagger-ui/**")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("swagger-ui**")).permitAll()
                 .requestMatchers( new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
                 .requestMatchers( new AntPathRequestMatcher("v3/api-docs/**")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("v3/api-docs**")).permitAll()
                 .requestMatchers( new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
                 .requestMatchers( new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("/v3/api-docs/swagger-config")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("/api-docs/swagger-config")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("/api-docs/**")).permitAll()
                 .anyRequest().authenticated()
         );
 
