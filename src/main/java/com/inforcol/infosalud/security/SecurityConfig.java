@@ -9,14 +9,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated()); // Usa autenticación básica
+        http.authorizeRequests(authorizeRequests -> authorizeRequests
+                .requestMatchers( new AntPathRequestMatcher("swagger-ui/**")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("v3/api-docs/**")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
+                .anyRequest().authenticated()
+        );
+
         return http.build();
     }
 
