@@ -1,5 +1,6 @@
 package com.inforcol.infosalud.services.impl;
 
+import com.inforcol.infosalud.controllers.HolaMundoController;
 import com.inforcol.infosalud.entities.DTO.UserDto;
 import com.inforcol.infosalud.entities.Users;
 import com.inforcol.infosalud.exceptions.UserNotFoundException;
@@ -7,6 +8,8 @@ import com.inforcol.infosalud.repositories.UserRepository;
 import com.inforcol.infosalud.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private static final Logger logger = LoggerFactory.getLogger(HolaMundoController.class);
 
     @Override
     public List<UserDto> findAll() {
