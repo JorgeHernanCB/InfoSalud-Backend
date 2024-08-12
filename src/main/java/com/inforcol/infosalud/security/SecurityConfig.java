@@ -2,6 +2,7 @@ package com.inforcol.infosalud.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+/*
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -10,13 +11,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+*/
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfig  {
 
+    /*
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http.authorizeRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers( new AntPathRequestMatcher("swagger-ui/**")).permitAll()
                 .requestMatchers( new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
@@ -27,10 +31,14 @@ public class SecurityConfig  {
                 .requestMatchers( new AntPathRequestMatcher("/api-docs/swagger-config")).permitAll()
                 .requestMatchers( new AntPathRequestMatcher("/api-docs/**")).permitAll()
                 .requestMatchers( new AntPathRequestMatcher("/api/**")).permitAll()
+                .requestMatchers( new AntPathRequestMatcher("/user/**")).permitAll()
                 .anyRequest().authenticated()
         );
 
+
         return http.build();
+
+
     }
 
     @Bean
@@ -44,4 +52,5 @@ public class SecurityConfig  {
 
     }
 
+ */
 }

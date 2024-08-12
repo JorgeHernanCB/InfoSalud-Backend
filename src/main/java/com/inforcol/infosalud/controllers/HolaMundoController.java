@@ -1,6 +1,10 @@
 package com.inforcol.infosalud.controllers;
 
+import com.inforcol.infosalud.entities.Users;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
@@ -14,7 +18,16 @@ public class HolaMundoController {
 
     private static final Logger logger = LoggerFactory.getLogger(HolaMundoController.class);
 
-    @Operation(summary = "Metodo de bienvenida")
+    @Operation(
+            summary = "Metodo de bienvenida",
+            description = "Metodo que ofrece un mensaje de bienvenida.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Successful authentication"
+                    )
+            }
+    )
     @GetMapping("/hola")
     public String holaMundo(@RequestParam(name = "nombre") String nombre) {
 
@@ -22,5 +35,4 @@ public class HolaMundoController {
 
         return "¡Hola " + nombre + "!";
     }
-
 }
