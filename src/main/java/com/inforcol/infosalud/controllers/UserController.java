@@ -4,13 +4,17 @@ import com.inforcol.infosalud.entities.DTO.UserDto;
 import com.inforcol.infosalud.entities.Users;
 import com.inforcol.infosalud.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,22 +24,22 @@ import java.util.List;
 @RequestMapping("/user")
 @Tag(name = "Usuario")
 @RequiredArgsConstructor
+@PreAuthorize("permitAll()")
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(HolaMundoController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
-
 
     @Operation(
         summary = "Obtener todo",
-        description = "Metodo que obtiene todos los registros.",
-        responses = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Successful authentication"
-            )
-        }
+        description = "Metodo que obtiene todos los registros."
     )
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }),
+        @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }),
+        @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) }),
+        @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) })
+    })
     @GetMapping("/findAll")
     public ResponseEntity<List<UserDto>> findAll(){
         return new ResponseEntity<>(this.userService.findAll(), HttpStatus.OK);

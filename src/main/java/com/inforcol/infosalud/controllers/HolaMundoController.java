@@ -1,11 +1,9 @@
 package com.inforcol.infosalud.controllers;
 
-import com.inforcol.infosalud.entities.Users;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +12,8 @@ import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping ("/api")
 @Tag(name = "hola")
+//@PreAuthorize("permitAll()")
+@PreAuthorize("isAuthenticated()")
 public class HolaMundoController {
 
     private static final Logger logger = LoggerFactory.getLogger(HolaMundoController.class);

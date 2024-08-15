@@ -2,55 +2,58 @@ package com.inforcol.infosalud.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-/*
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-*/
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig  {
 
-    /*
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests(authorizeRequests -> authorizeRequests
-                .requestMatchers( new AntPathRequestMatcher("swagger-ui/**")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("v3/api-docs/**")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/v3/api-docs/swagger-config")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/api-docs/swagger-config")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/api-docs/**")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/api/**")).permitAll()
-                .requestMatchers( new AntPathRequestMatcher("/user/**")).permitAll()
-                .anyRequest().authenticated()
-        );
-
+        http.csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(withDefaults())
+                .formLogin(withDefaults())
+                .logout(withDefaults());;
 
         return http.build();
-
 
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
+    public UserDetailsService users() {
+        PasswordEncoder encoder = passwordEncoder();
 
+        UserDetails admin = User.builder()
+                .username("InfoSalud")
+                .password(encoder.encode("1nf0S4lud"))
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin);
     }
 
- */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
