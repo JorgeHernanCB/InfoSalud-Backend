@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping("/user")
 @Tag(name = "Usuario")
 @RequiredArgsConstructor
-@PreAuthorize("permitAll()")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -57,7 +56,7 @@ public class UserController {
     )
     @GetMapping("/find/{id}")
     public ResponseEntity<UserDto> findById(@PathVariable Long id){
-        logger.info("ID a buscar: " + id);
+        logger.debug("ID a buscar: " + id);
         return new ResponseEntity<>(this.userService.findById(id), HttpStatus.OK);
     }
 
@@ -73,7 +72,7 @@ public class UserController {
     )
     @PostMapping("/save")
     public ResponseEntity<UserDto> save(@RequestBody UserDto userDto){
-        logger.info("Usario a insertar: " + userDto.toString());
+        logger.debug("Usario a insertar: " + userDto.toString());
         return new ResponseEntity<>(this.userService.save(userDto), HttpStatus.CREATED);
     }
 
@@ -89,8 +88,8 @@ public class UserController {
     )
     @PutMapping("/update/{id}")
     public ResponseEntity<UserDto> save(@PathVariable Long id, @RequestBody UserDto users){
-        logger.info("ID de usuario a actualizar: " + id);
-        logger.info("Usario a actualizar: " + users.toString());
+        logger.debug("ID de usuario a actualizar: " + id);
+        logger.debug("Usario a actualizar: " + users.toString());
         return new ResponseEntity<>(this.userService.updateUser(id, users), HttpStatus.CREATED);
     }
 
@@ -106,7 +105,7 @@ public class UserController {
     )
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
-        logger.info("ID de usuario a eliminar: " + id);
+        logger.debug("ID de usuario a eliminar: " + id);
         return new ResponseEntity<>(this.userService.deleteUser(id), HttpStatus.OK);
     }
 

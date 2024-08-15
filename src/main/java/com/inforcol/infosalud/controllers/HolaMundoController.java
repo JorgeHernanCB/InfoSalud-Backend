@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping ("/api")
 @Tag(name = "hola")
-//@PreAuthorize("permitAll()")
 @PreAuthorize("isAuthenticated()")
 public class HolaMundoController {
 
@@ -31,7 +30,7 @@ public class HolaMundoController {
     @GetMapping("/hola")
     public String holaMundo(@RequestParam(name = "nombre") String nombre) {
 
-        logger.info("Se esta saludando a: " + nombre);
+        logger.debug("Se esta saludando a: " + nombre);
 
         return "¡Hola " + nombre + "!";
     }
