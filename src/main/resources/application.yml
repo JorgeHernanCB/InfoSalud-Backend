@@ -32,4 +32,8 @@ springdoc:
 logging:
   level:
     root: DEBUG
-    org.springframework.boot.autoconfigure.condition.ConditionEvaluationReportLogger: ERROR
+    org.springframework.web: INFO
+    org.springframework.boot: INFO
+    org.hibernate: WARN
+    org.hibernate.SQL: ERROR
+    org.hibernate.type.descriptor.sql.BasicBinder: ERROR
