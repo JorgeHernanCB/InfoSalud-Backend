@@ -59,4 +59,19 @@ La configuración de la base de datos y otros parámetros del sistema se pueden 
 ## Documentación de la API
 
 Una vez que la aplicación está en ejecución, puedes acceder a la documentación de la API generada por Swagger en la siguiente URL:
+http://localhost:8080/swagger-ui/index.html
+
+
+## Estructura del Proyecto
+
+```bash
+InfoSalud-Backend/
+├── src/
+│   ├── main/
+│   │   ├── java/com/infosalud/
+│   │   ├── resources/
+│   │   └── ...
+├── pom.xml
+└── README.md
+
 
